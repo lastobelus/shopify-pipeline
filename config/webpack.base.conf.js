@@ -79,7 +79,6 @@ module.exports = {
       },
       {
         test: /fonts\/.*\.(eot|svg|ttf|woff|woff2)$/,
-        exclude: /node_modules/,
         loader: 'file-loader'
       },
       {
@@ -141,6 +140,12 @@ module.exports = {
           { removeTitle: true }
         ]
       }
+    }),
+
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery'
     })
   ]
 }
