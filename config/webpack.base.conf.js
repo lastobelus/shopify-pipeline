@@ -58,6 +58,10 @@ module.exports = {
         }
       },
       {
+        test:/fancybox[\/\\]/,
+        use: 'imports-loader?jQuery=jquery,$=jquery,this=>window'
+      },
+      {
         test: /\.js$/,
         exclude: commonExcludes(),
         loader: 'babel-loader',
