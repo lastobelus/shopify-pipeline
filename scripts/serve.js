@@ -118,6 +118,8 @@ compiler.plugin('done', (stats) => {
     console.log(chalk.green('Compiled successfully!'))
     console.log('\nThe app is running at:\n')
     console.log(`  ${chalk.cyan(previewUrl)}`)
+    console.log('\nHMR is running at:\n')
+    console.log(`  ${chalk.cyan(config.devDomain)}`)
   }
 
   // files we'll upload
