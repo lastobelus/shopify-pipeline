@@ -20,7 +20,7 @@ module.exports = merge(webpackConfig, {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/,
+        test: /\.s?[ac]ss$/,
         exclude: commonExcludes(),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
