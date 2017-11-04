@@ -49,6 +49,12 @@ module.exports = merge(webpackConfig, {
       filename: '../layout/theme.liquid',
       template: './layout/theme.liquid',
       inject: true
+    }),
+    new HtmlWebpackPlugin({
+      excludeChunks: ['static'],
+      filename: '../layout/search.liquid',
+      template: './layout/search.liquid',
+      inject: true
     })
   ]
 }, userWebpackConfig)
