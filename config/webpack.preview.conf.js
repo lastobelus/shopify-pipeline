@@ -15,6 +15,7 @@ const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 
 module.exports = merge(webpackConfig, {
+  watch: true,
   devtool: 'hidden-source-map',
 
   module: {
@@ -79,6 +80,23 @@ module.exports = merge(webpackConfig, {
       // filename: '../index.html',
       template: './layout/search.liquid',
       inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
+
+    new HtmlWebpackPlugin({
+      excludeChunks: ['static'],
+      filename: '../layout/checkout.liquid',
+      // filename: '../index.html',
+      template: './layout/checkout.liquid',
+      inject: false,
       minify: {
         removeComments: true,
         collapseWhitespace: true,

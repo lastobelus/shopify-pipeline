@@ -94,6 +94,23 @@ module.exports = merge(webpackConfig, {
       chunksSortMode: 'dependency'
     }),
 
+    new HtmlWebpackPlugin({
+      excludeChunks: ['static'],
+      filename: '../layout/checkout.liquid',
+      // filename: '../index.html',
+      template: './layout/checkout.liquid',
+      inject: false,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
+
     new AssetTagToShopifyLiquid(),
 
     // split node_modules/vendors into their own file

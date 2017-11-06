@@ -96,7 +96,7 @@ module.exports = {
       {
         test: config.regex.static,
         // excluding layout/theme.liquid as it's also being emitted by the HtmlWebpackPlugin
-        exclude: commonExcludes('layout/theme.liquid', 'layout/search.liquid'),
+        exclude: commonExcludes('layout/theme.liquid', 'layout/search.liquid', 'layout/checkout.liquid'),
         loader: 'file-loader',
         options: {
           name: '../[path][name].[ext]'
