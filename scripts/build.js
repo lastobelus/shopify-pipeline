@@ -6,7 +6,10 @@
 const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
 const webpack = require('webpack')
-const webpackConfig = require('../config/webpack.prod.conf')
+const prodConfig = require('../config/webpack.prod.conf')
+const previewConfig = require('../config/webpack.preview.conf')
+const webpackConfig = argv.preview ? previewConfig : prodConfig
+
 const config = require('../config')
 const shopify = require('../lib/shopify-deploy')
 const env = require('../lib/get-shopify-env-or-die')(argv.env, config.shopify)
