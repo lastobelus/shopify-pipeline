@@ -34,7 +34,10 @@ module.exports = merge(webpackConfig, {
               loader: 'postcss-loader',
               options: { plugins: [autoprefixer, cssnano] }
             },
-            'sass-loader'
+            {
+              loader: 'sass-loader',
+              options: { includePaths: [].concat(bourbon) }
+            }
           ]
         })
       }
