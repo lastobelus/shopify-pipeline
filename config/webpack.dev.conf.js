@@ -7,7 +7,6 @@ const config = require('./index')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
-const bourbon = require('node-bourbon').includePaths
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.devDomain}/`
@@ -30,7 +29,7 @@ module.exports = merge(webpackConfig, {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true, includePaths: [].concat(bourbon) } }
+          { loader: 'sass-loader', options: { sourceMap: true, includePaths: [].concat(config.paths.bourbon) } }
         ]
       }
     ]

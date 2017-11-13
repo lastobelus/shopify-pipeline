@@ -36,7 +36,7 @@ module.exports = merge(webpackConfig, {
             },
             {
               loader: 'sass-loader',
-              options: { includePaths: [].concat(bourbon) }
+              options: { includePaths: [].concat(config.paths.bourbon) }
             }
           ]
         })

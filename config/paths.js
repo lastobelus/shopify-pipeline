@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const bourbon = require('node-bourbon').includePaths
 
 const appDirectory = fs.realpathSync(process.cwd())
 
@@ -50,5 +51,6 @@ module.exports = {
   assetsOutput: resolveApp('dist/assets'),
   userShopifyConfig: resolveApp('config/shopify.yml'),
   userServerConfig: resolveApp('config/server.yml'),
-  eslintrc: getEslintrc()
+  eslintrc: getEslintrc(),
+  bourbon: bourbon
 }
