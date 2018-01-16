@@ -45,7 +45,8 @@ module.exports = {
   vendors: resolveApp('src/assets/vendors'),
   lib: resolveSelf('lib'),
   entrypoints: {
-    scripts: resolveApp('src/assets/js/index.js'),
+    index: resolveApp('src/assets/js/index.js'),
+    checkout: resolveApp('src/assets/js/checkout.js'),
     static: resolveSelf('lib/static-files-glob.js')
   },
   assetsOutput: resolveApp('dist/assets'),

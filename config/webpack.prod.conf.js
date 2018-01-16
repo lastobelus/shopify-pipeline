@@ -64,7 +64,7 @@ module.exports = merge(webpackConfig, {
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'checkout'],
       filename: '../layout/theme.liquid',
       // filename: '../index.html',
       template: './layout/theme.liquid',
@@ -81,7 +81,7 @@ module.exports = merge(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'checkout'],
       filename: '../layout/search.liquid',
       // filename: '../index.html',
       template: './layout/search.liquid',
@@ -98,11 +98,11 @@ module.exports = merge(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'index'],
       filename: '../layout/checkout.liquid',
       // filename: '../index.html',
       template: './layout/checkout.liquid',
-      inject: false,
+      inject: true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,

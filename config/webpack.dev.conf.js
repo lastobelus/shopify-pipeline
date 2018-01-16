@@ -45,22 +45,22 @@ module.exports = merge(webpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'checkout'],
       filename: '../layout/theme.liquid',
       template: './layout/theme.liquid',
       inject: true
     }),
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'checkout'],
       filename: '../layout/search.liquid',
       template: './layout/search.liquid',
       inject: true
     }),
     new HtmlWebpackPlugin({
-      excludeChunks: ['static'],
+      excludeChunks: ['static', 'index'],
       filename: '../layout/checkout.liquid',
       template: './layout/checkout.liquid',
-      inject: false
+      inject: true
     })
 
   ]
