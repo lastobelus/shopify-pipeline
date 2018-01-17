@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.2.2-14",
+  "version": "0.2.2-15",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "cross-spawn": "5.1.0",
     "css-loader": "0.28.1",
     "cssnano": "3.10.0",
+    "dotenv-webpack": "^1.5.4",
     "escape-string-regexp": "1.0.5",
     "eslint": "3.19.0",
     "eslint-config-airbnb-base": "11.2.0",

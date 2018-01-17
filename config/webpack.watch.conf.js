@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
-const userWebpackConfig = require('../lib/get-user-webpack-config')('prod')
+const userWebpackConfig = require('../lib/get-user-webpack-config')('watch')
 
 const config = require('../config')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -13,8 +13,9 @@ const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
+const htmlMin = false
 
-module.exports = merge(webpackConfig, {
+const finalConfig = merge(webpackConfig, {
   watch: true,
   devtool: 'hidden-source-map',
 
@@ -63,16 +64,10 @@ module.exports = merge(webpackConfig, {
     new HtmlWebpackPlugin({
       excludeChunks: ['static', 'checkout'],
       filename: '../layout/theme.liquid',
-      // filename: '../index.html',
       template: './layout/theme.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      hash: false,
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -80,16 +75,10 @@ module.exports = merge(webpackConfig, {
     new HtmlWebpackPlugin({
       excludeChunks: ['static', 'checkout'],
       filename: '../layout/search.liquid',
-      // filename: '../index.html',
       template: './layout/search.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      hash: false,
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -97,16 +86,10 @@ module.exports = merge(webpackConfig, {
     new HtmlWebpackPlugin({
       excludeChunks: ['static', 'index'],
       filename: '../layout/checkout.liquid',
-      // filename: '../index.html',
       template: './layout/checkout.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      hash: false,
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -131,3 +114,8 @@ module.exports = merge(webpackConfig, {
     })
   ]
 }, userWebpackConfig)
+
+console.log('userWebpackConfig: ', userWebpackConfig)
+console.log('======================================================================')
+console.log('finalConfig: ', finalConfig)
+module.exports = finalConfig

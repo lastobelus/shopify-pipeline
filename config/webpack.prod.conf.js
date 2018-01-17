@@ -14,6 +14,20 @@ const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 
+const htmlMin = {
+  removeComments: true,
+  collapseWhitespace: true,
+  removeAttributeQuotes: true,
+  collapseBooleanAttributes: true,
+  minifyJS: true,
+  minifyCSS: true,
+  maxLineLength: 140,
+  removeStyleLinkTypeAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeRedundantAttributes: true
+  // more options:
+  // https://github.com/kangax/html-minifier#options-quick-reference
+}
 module.exports = merge(webpackConfig, {
   devtool: 'hidden-source-map',
 
@@ -69,13 +83,7 @@ module.exports = merge(webpackConfig, {
       // filename: '../index.html',
       template: './layout/theme.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -86,13 +94,7 @@ module.exports = merge(webpackConfig, {
       // filename: '../index.html',
       template: './layout/search.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -103,13 +105,7 @@ module.exports = merge(webpackConfig, {
       // filename: '../index.html',
       template: './layout/checkout.liquid',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
+      minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
