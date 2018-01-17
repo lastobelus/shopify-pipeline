@@ -115,7 +115,4 @@ const finalConfig = merge(webpackConfig, {
   ]
 }, userWebpackConfig)
 
-console.log('userWebpackConfig: ', userWebpackConfig)
-console.log('======================================================================')
-console.log('finalConfig: ', finalConfig)
 module.exports = finalConfig
