@@ -123,6 +123,10 @@ module.exports = {
     ]
   },
 
+  externals: {
+    jquery: 'jQuery'
+  },
+
   plugins: [
     ...contextReplacementPlugins(),
 
