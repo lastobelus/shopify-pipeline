@@ -2,6 +2,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const config = require('../config')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
 const paths = require('../config/paths')
 const commonExcludes = require('../lib/common-excludes')
@@ -66,6 +67,7 @@ module.exports = {
         exclude: commonExcludes(),
         loader: 'babel-loader',
         options: {
+          plugins: ['lodash'],
           presets: [
             ['env', {
               targets: {
@@ -154,6 +156,9 @@ module.exports = {
       jQuery: 'jquery',
       $: 'jquery',
       jquery: 'jquery'
-    })
+    }),
+
+    new LodashModuleReplacementPlugin
+
   ]
 }
