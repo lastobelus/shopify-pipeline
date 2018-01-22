@@ -1,10 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const webpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./index')
+const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
 
