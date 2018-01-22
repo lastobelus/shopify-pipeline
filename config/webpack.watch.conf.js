@@ -17,7 +17,7 @@ const htmlMin = false
 
 const finalConfig = merge(webpackConfig, {
   watch: true,
-  devtool: 'hidden-source-map',
+  devtool: '#eval-source-map',
 
   module: {
     rules: [
@@ -48,13 +48,6 @@ const finalConfig = merge(webpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: '"production"' }
-    }),
-
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
     }),
 
     // extract css into its own file
