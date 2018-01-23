@@ -84,6 +84,10 @@ module.exports = {
         loader: 'hmr-alamo-loader'
       },
       {
+        test: /fonts\/.*\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader'
+      },
+      {
         test: /fonts\/.*\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader'
       },

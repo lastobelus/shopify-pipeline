@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.2.2-20",
+  "version": "0.2.2-21",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "extract-loader": "0.1.0",
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
+    "font-awesome": "^4.7.0",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.28.0",
     "img-loader": "2.0.0",
