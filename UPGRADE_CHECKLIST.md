@@ -85,23 +85,20 @@ merge:
      "^1.1.3",
 minimist:
      "1.2.0",
-
-
-
-
 node-sass:
      "4.5.3",
      4.7.2 OK
 postcss-loader:
      "2.0.5",
      "2.0.10" OK
-
-
-
 raw-loader:
      "^0.5.1",
 react-dev-utils:
      "0.5.2",
+     "5.0.0" OK (had to replace prompt with inquirer)
+
+
+
 sass-loader:
      "6.0.5",
 style-loader:
