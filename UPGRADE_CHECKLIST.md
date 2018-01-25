@@ -96,13 +96,25 @@ raw-loader:
 react-dev-utils:
      "0.5.2",
      "5.0.0" OK (had to replace prompt with inquirer)
-
-
-
 sass-loader:
      "6.0.5",
+     6.0.6 OK
 style-loader:
      "0.17.0",
+     0.19.1 OK
+yamljs:
+     "0.2.10"
+     "0.3.0" OK
+
+
+
+
+write-file-webpack-plugin:
+     "4.0.2",
+
+
+
+
 webpack:
      "2.5.1",
 webpack-dev-middleware:
@@ -113,10 +125,6 @@ webpack-merge:
      "4.1.0",
 webpack-svgstore-plugin:
      "4.0.0",
-write-file-webpack-plugin:
-     "4.0.2",
-yamljs:
-     "0.2.10"
 
 
 
