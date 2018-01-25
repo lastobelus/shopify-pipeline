@@ -1,26 +1,31 @@
 @shopify/themekit:
      "0.6.11",
      "0.6.12"    OK
-
-
-
 autoprefixer:
      "6.7.7",
-
-
-
+     "7.2.5" OK
 babel-cli:
      "6.24.1",
+  "6.26.0" OK
 babel-core:
      "^6.26.0",
 babel-jest:
      "20.0.3",
+  "22.1.0" OK
 babel-loader:
-     "7.0.0",
+     "7.1.2", OK
 babel-plugin-lodash:
      "^3.3.2",
+
+
+
+
 babel-preset-env:
      "1.4.0",
+
+
+
+
 bourbon:
      "^4.3.4",
 chalk:
