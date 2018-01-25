@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.2.2-26.file-loader",
+  "version": "0.2.2-26.fs-extra",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "extract-text-webpack-plugin": "^2.1",
     "file-loader": "1.1.6",
     "font-awesome": "^4.7.0",
-    "fs-extra": "3.0.1",
+    "fs-extra": "5.0.0",
     "html-webpack-plugin": "2.28.0",
     "img-loader": "2.0.0",
     "imports-loader": "^0.7.1",

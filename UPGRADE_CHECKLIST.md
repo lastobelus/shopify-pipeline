@@ -59,10 +59,9 @@ extract-loader:
 extract-text-webpack-plugin:
      "2.1.0",
      "^2.1.2" OK (not 3.x.x)
-
-
 file-loader:
      "0.11.1",
+     "1.1.6" OK
 font-awesome:
      "^4.7.0",
 
@@ -70,6 +69,10 @@ font-awesome:
 
 fs-extra:
      "3.0.1",
+     "5.0.0" OK
+
+
+
 html-webpack-plugin:
      "2.28.0",
 img-loader:
