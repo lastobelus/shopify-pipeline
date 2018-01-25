@@ -192,8 +192,21 @@ Here are the steps necessary to use it:
 
 Also **note** that, if you want to reference the sprite file in your liquid templates, [you will need to make sure that the url is not parsed by Webpack](#how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters). You can do so by wrapping the liquid curly brackets in a single quote and the name of the sprite in double quotes, like so:
 ```
-<div data-some-attribute='{{ "logos.svg" | asset_url }}'></div>
+<div data-svgloader='{{ "logos.svg" | asset_url }}'></div>
 ```
+
+The sprite loader that comes with [webpack-svgstore-plugin]((https://github.com/mrsum/webpack-svgstore-plugin) won't work out of the box, instead given that you have included the above liquid snippet in your theme, this loader will suffice:
+```
+$('[data-svg-loader]').each(function _loadSvg() {
+  const $this = $(this)
+  $.get($this.data('src'), (svg) => {
+    const svgSerialized = new window.XMLSerializer().serializeToString(svg.documentElement)
+    this.innerHTML = svgSerialized
+  })
+})
+```
+
+**Updating SVGs:** To get the svg store to regenerate, you must touch `index.js` -- editing, adding/removing svgs will not trigger a recompile.
 
 #### [7] Shopify Required
 
