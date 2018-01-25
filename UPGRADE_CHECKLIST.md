@@ -77,9 +77,6 @@ imports-loader:
 jest:
      "20.0.3",
      "22.1.4" OK
-
-
-
 loader-utils:
      "1.1.0",
 lodash-webpack-plugin:
@@ -88,10 +85,19 @@ merge:
      "^1.1.3",
 minimist:
      "1.2.0",
+
+
+
+
 node-sass:
      "4.5.3",
+     4.7.2 OK
 postcss-loader:
      "2.0.5",
+     "2.0.10" OK
+
+
+
 raw-loader:
      "^0.5.1",
 react-dev-utils:
