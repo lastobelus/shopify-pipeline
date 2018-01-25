@@ -16,24 +16,27 @@ babel-loader:
      "7.1.2", OK
 babel-plugin-lodash:
      "^3.3.2",
-
-
-
-
 babel-preset-env:
      "1.4.0",
-
-
-
-
+     "1.6.1" OK
 bourbon:
      "^4.3.4",
+     "5.0.0" OK
 chalk:
      "1.1.3",
 clean-webpack-plugin:
      "0.1.16",
+     "0.1.17" OK
+
+
+
+
 cross-spawn:
      "5.1.0",
+
+
+
+
 css-loader:
      "0.28.9",
 cssnano:
