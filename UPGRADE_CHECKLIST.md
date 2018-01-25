@@ -67,20 +67,19 @@ font-awesome:
 fs-extra:
      "3.0.1",
      "5.0.0" OK
-
-
-
 html-webpack-plugin:
      "2.28.0",
      "2.30.1" OK
-
-
 img-loader:
      "2.0.0",
 imports-loader:
      "^0.7.1",
 jest:
      "20.0.3",
+     "22.1.4" OK
+
+
+
 loader-utils:
      "1.1.0",
 lodash-webpack-plugin:
