@@ -27,16 +27,9 @@ chalk:
 clean-webpack-plugin:
      "0.1.16",
      "0.1.17" OK
-
-
-
-
 cross-spawn:
      "5.1.0",
-
-
-
-
+     "6.0.3" OK
 css-loader:
      "0.28.9",
 cssnano:
@@ -47,14 +40,25 @@ escape-string-regexp:
      "1.0.5",
 eslint:
      "3.19.0",
+     "4.16.0" OK
 eslint-config-airbnb-base:
      "11.2.0",
+     "12.1.0" OK
 eslint-loader:
      "1.7.1",
+     "1.9.0" OK
 eslint-plugin-import:
      "2.2.0",
+     "2.8.0" OK
+
+
 express:
      "4.15.3",
+
+
+
+
+
 extract-loader:
      "0.1.0",
 extract-text-webpack-plugin:
