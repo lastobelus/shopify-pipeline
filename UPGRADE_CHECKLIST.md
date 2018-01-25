@@ -50,19 +50,16 @@ eslint-loader:
 eslint-plugin-import:
      "2.2.0",
      "2.8.0" OK
-
-
 express:
      "4.15.3",
-
-
-
-
-
+     "4.16.2" OK
 extract-loader:
      "0.1.0",
+     "1.0.2" OK
 extract-text-webpack-plugin:
      "2.1.0",
+     "^2.1.2" OK (not 3.x.x)
+
 file-loader:
      "0.11.1",
 font-awesome:
@@ -111,3 +108,11 @@ write-file-webpack-plugin:
      "4.0.2",
 yamljs:
      "0.2.10"
+
+
+
+
+
+## To Upgrade to Webpack 3
+extract-text-webpack-plugin:
+     "2.1.2", (3.x.x requres webpack 3)
