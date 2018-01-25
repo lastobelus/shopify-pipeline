@@ -64,9 +64,6 @@ file-loader:
      "1.1.6" OK
 font-awesome:
      "^4.7.0",
-
-
-
 fs-extra:
      "3.0.1",
      "5.0.0" OK
@@ -75,6 +72,9 @@ fs-extra:
 
 html-webpack-plugin:
      "2.28.0",
+     "2.30.1" OK
+
+
 img-loader:
      "2.0.0",
 imports-loader:
