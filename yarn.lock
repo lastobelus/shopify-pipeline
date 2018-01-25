@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@shopify/themekit@0.6.11":
-  version "0.6.11"
-  resolved "https://registry.yarnpkg.com/@shopify/themekit/-/themekit-0.6.11.tgz#7cd4ca557a04ad1d9b44e09c2043dfc9a6d442ea"
+"@shopify/themekit@0.6.12":
+  version "0.6.12"
+  resolved "https://registry.yarnpkg.com/@shopify/themekit/-/themekit-0.6.12.tgz#7cf86175b3b62ef7f405f068fd6f7c0cc8fd30bc"
   dependencies:
     bin-wrapper "3.0.2"
     minimist "1.2.0"
