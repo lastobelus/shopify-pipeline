@@ -60,10 +60,14 @@ extract-text-webpack-plugin:
      "2.1.0",
      "^2.1.2" OK (not 3.x.x)
 
+
 file-loader:
      "0.11.1",
 font-awesome:
      "^4.7.0",
+
+
+
 fs-extra:
      "3.0.1",
 html-webpack-plugin:
