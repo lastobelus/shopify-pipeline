@@ -31,6 +31,11 @@ module.exports = merge(webpackConfig, {
           { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'sass-loader', options: { sourceMap: true, includePaths: [].concat(config.paths.bourbon) } }
         ]
+      },
+      {
+        test: /\.js$/,
+        exclude: commonExcludes(),
+        loader: 'hmr-alamo-loader'
       }
     ]
   },

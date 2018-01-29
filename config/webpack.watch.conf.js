@@ -23,7 +23,7 @@ let uploaderStarted = false
 
 const finalConfig = merge(webpackConfig, {
   watch: true,
-  devtool: 'hidden-source-map',
+  devtool: 'cheap-module-eval-source-map',
 
   // we don't want hashed names in watch mode
   output: {

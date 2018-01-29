@@ -4,6 +4,9 @@
  * If the `deploy` argument has been passed, deploy to Shopify when the compilation is done.
  */
 const argv = require('minimist')(process.argv.slice(2))
+if (argv.watch) {
+  process.env.watch = true
+}
 const chalk = require('chalk')
 const webpack = require('webpack')
 const prodConfig = require('../config/webpack.prod.conf')
@@ -19,6 +22,7 @@ process.env.SHOPIFY_ENV = env
 const util = require('util')
 // const debuglog = util.debuglog('shopify-upload')
 // debuglog('webpack-config:\n %o', webpackConfig)
+
 
 if (argv.watch && !argv.inc) {
   uploader.uploadChanges()
