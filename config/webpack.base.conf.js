@@ -43,6 +43,10 @@ module.exports = {
     path: config.paths.assetsOutput
   },
 
+  resolve: {
+    symlinks: false
+  },
+
   resolveLoader: {
     modules: [config.paths.lib, 'node_modules']
   },
@@ -52,7 +56,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: commonExcludes(),
+        exclude: commonExcludes('/node_modules/'),
         loader: 'eslint-loader',
         options: {
           configFile: config.paths.eslintrc

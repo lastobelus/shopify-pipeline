@@ -1,3 +1,5 @@
+const argv = require('minimist')(process.argv.slice(2))
+const chalk = require('chalk')
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
@@ -10,14 +12,24 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
+const uploader = require('../lib/shopify-uploader')
+const WebpackOnBuildPlugin = require('on-build-webpack')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 const htmlMin = false
 
+let uploaderStarted = false
+
 const finalConfig = merge(webpackConfig, {
   watch: true,
   devtool: 'hidden-source-map',
+
+  // we don't want hashed names in watch mode
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name].js'
+  },
 
   module: {
     rules: [
@@ -47,7 +59,7 @@ const finalConfig = merge(webpackConfig, {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: '"production"' }
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
 
     new webpack.optimize.UglifyJsPlugin({
@@ -58,7 +70,7 @@ const finalConfig = merge(webpackConfig, {
     }),
 
     // extract css into its own file
-    new ExtractTextPlugin('styles.[contenthash].css'),
+    new ExtractTextPlugin('[name].css'),
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
@@ -66,6 +78,7 @@ const finalConfig = merge(webpackConfig, {
       filename: '../layout/theme.liquid',
       template: './layout/theme.liquid',
       inject: true,
+      cache: true,
       hash: false,
       minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
@@ -77,6 +90,7 @@ const finalConfig = merge(webpackConfig, {
       filename: '../layout/search.liquid',
       template: './layout/search.liquid',
       inject: true,
+      cache: true,
       hash: false,
       minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
@@ -88,6 +102,7 @@ const finalConfig = merge(webpackConfig, {
       filename: '../layout/checkout.liquid',
       template: './layout/checkout.liquid',
       inject: true,
+      cache: true,
       hash: false,
       minify: htmlMin,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
@@ -111,7 +126,14 @@ const finalConfig = merge(webpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    })
+    }),
+
+    new WebpackOnBuildPlugin((stats) => {
+      if(argv.inc && !uploaderStarted) {
+        uploader.uploadChanges()
+        uploaderStarted = true
+      }
+    }),
   ]
 }, userWebpackConfig)
 

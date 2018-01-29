@@ -9,10 +9,20 @@ const webpack = require('webpack')
 const prodConfig = require('../config/webpack.prod.conf')
 const watchConfig = require('../config/webpack.watch.conf')
 const webpackConfig = argv.watch ? watchConfig : prodConfig
+const uploader = require('../lib/shopify-uploader')
 
 const config = require('../config')
 const shopify = require('../lib/shopify-deploy')
 const env = require('../lib/get-shopify-env-or-die')(argv.env, config.shopify)
+process.env.SHOPIFY_ENV = env
+
+const util = require('util')
+// const debuglog = util.debuglog('shopify-upload')
+// debuglog('webpack-config:\n %o', webpackConfig)
+
+if (argv.watch && !argv.inc) {
+  uploader.uploadChanges()
+}
 
 webpack(webpackConfig, (err, stats) => {
   if (err) throw err
@@ -32,4 +42,5 @@ webpack(webpackConfig, (err, stats) => {
       console.log(`\n${chalk.red(error)}\n`)
     })
   }
+
 })

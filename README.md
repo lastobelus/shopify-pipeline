@@ -2,7 +2,7 @@
 
 ---
 
-**Important disclaimers:** 
+**Important disclaimers:**
 
 This project is still in beta.
 
@@ -261,9 +261,11 @@ Here are the available API commands for Shopify Pipeline:
   - Will serve assets on `https://localhost:8080`
   - (Optional) You can pass it one of the `shopify.yml`'s environments as a flag; it will default to `development` environment
 
-`build [-- [--deploy] [--env=development]]`
+`build [-- [--deploy] [--watch] [--env=development]]`
   - Builds a production-ready version of the theme and outputs it to the `dist` folder
   - (Optional) You can pass it a `deploy` flag, which will push the compiled theme to Shopify after the build
+  - (Optional) You can pass it a `watch` flag, which will run webpack watch for incremental compiles, uploading the changed files to Shopify after each incremental build. By default, watch will do a full build and upload all the files. If you know your current dist folder is already in a good state, you can pass `inc` flag to skip uploading the initial full build, and only upload subsequent changes.
+
   - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 
 `test`
@@ -272,6 +274,12 @@ Here are the available API commands for Shopify Pipeline:
 
 ## Customizing your Workflow
 (More to come)
+
+## Debugging
+
+Use node --inspect. Note that `cli.js` spawns, so you need to use node inspect directly on a script:
+`node --inspect node_modules/shopify_pipeline/scripts/build.js --watch`
+
 
 ## Caveats
 ### How to generate a local SSH certificate
