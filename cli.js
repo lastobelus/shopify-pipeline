@@ -8,6 +8,7 @@ let result
 
 switch (script) {
   case 'build':
+  case 'watch':
   case 'serve':
     result = spawn.sync(
       'node',

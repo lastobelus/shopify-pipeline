@@ -1,4 +1,5 @@
 const path = require('path')
+const paths = require('../config/paths')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.base.conf')
@@ -33,6 +34,16 @@ module.exports = merge(webpackConfig, {
 
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        include: paths.src,
+        exclude: commonExcludes('/node_modules/'),
+        loader: 'eslint-loader',
+        options: {
+          configFile: config.paths.eslintrc
+        }
+      },
       {
         test: /\.s?[ac]ss$/,
         exclude: commonExcludes(),

@@ -261,10 +261,15 @@ Here are the available API commands for Shopify Pipeline:
   - Will serve assets on `https://localhost:8080`
   - (Optional) You can pass it one of the `shopify.yml`'s environments as a flag; it will default to `development` environment
 
-`build [-- [--deploy] [--watch] [--env=development]]`
+`build [-- [--deploy] [--env=development]]`
   - Builds a production-ready version of the theme and outputs it to the `dist` folder
   - (Optional) You can pass it a `deploy` flag, which will push the compiled theme to Shopify after the build
-  - (Optional) You can pass it a `watch` flag, which will run webpack watch for incremental compiles, uploading the changed files to Shopify after each incremental build. By default, watch will do a full build and upload all the files. If you know your current dist folder is already in a good state, you can pass `inc` flag to skip uploading the initial full build, and only upload subsequent changes.
+
+`watch [-- [--inc] [--source-maps=none|webpack-source-map-style] [--env=development]]`
+  - Builds a development version of the theme and outputs it to the `dist` folder, and rebuilds it incrementally as you save changes, uploading the changed files to Shopify after each incremental build.
+  - By default, watch will do a full build and upload all the files when it is first launch. If you know your current dist folder is already in a good state, you can pass `inc` flag to skip uploading the initial full build, and only upload subsequent changes.
+  - watch mode doesn't run eslint. To get linting in watch mode, it's best to either let your editor do it or install `eslint-watch` and run `esw --fix -w src/assets/js`
+  - by default watch mode does not build sourcemaps. you
 
   - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 

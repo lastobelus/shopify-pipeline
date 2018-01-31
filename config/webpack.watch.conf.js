@@ -21,9 +21,12 @@ const htmlMin = false
 
 let uploaderStarted = false
 
+const source_map_style = argv.source_map || argv['source-map'] || false
+console.log('source_map_style: ', source_map_style)
+
 const finalConfig = merge(webpackConfig, {
   watch: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: source_map_style,
 
   // we don't want hashed names in watch mode
   output: {

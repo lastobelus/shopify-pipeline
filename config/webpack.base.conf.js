@@ -63,16 +63,6 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        include: paths.src,
-        exclude: commonExcludes('/node_modules/'),
-        loader: 'eslint-loader',
-        options: {
-          configFile: config.paths.eslintrc
-        }
-      },
-      {
         test:/fancybox[\/\\]/,
         use: 'imports-loader?jQuery=jquery,$=jquery,this=>window'
       },
