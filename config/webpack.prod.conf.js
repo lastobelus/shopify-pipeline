@@ -74,7 +74,8 @@ module.exports = merge(webpackConfig, {
     }),
 
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: '"production"' }
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'BUILD_MODE': JSON.stringify('deploy')
     }),
 
     new webpack.optimize.UglifyJsPlugin({

@@ -123,7 +123,7 @@ module.exports = {
       {
         test: /layout\/.+\.liquid$/,
         exclude: commonExcludes(),
-        loader: 'raw-loader'
+        loader: 'underscore-template-loader'
       },
       {
         test: /\.liquid$/,
@@ -166,7 +166,7 @@ module.exports = {
       jquery: 'jquery'
     }),
 
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin()
 
   ]
 }
