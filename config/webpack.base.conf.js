@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const config = require('../config')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
 const paths = require('../config/paths')
 const commonExcludes = require('../lib/common-excludes')
@@ -166,7 +167,11 @@ module.exports = {
       jquery: 'jquery'
     }),
 
-    new LodashModuleReplacementPlugin()
+    new LodashModuleReplacementPlugin(),
+
+    new GitRevisionPlugin({
+      branch: true
+    })
 
   ]
 }

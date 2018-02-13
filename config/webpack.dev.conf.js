@@ -19,7 +19,7 @@ Object.keys(webpackConfig.entry).forEach((name) => {
 })
 
 module.exports = merge(webpackConfig, {
-  devtool: '#eval-source-map',
+  devtool: 'eval-source-map',
 
   module: {
     rules: [
