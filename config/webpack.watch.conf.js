@@ -16,7 +16,23 @@ const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 
-const htmlMin = false
+let htmlMin = false
+if (argv.minify) {
+  htmlMin = {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeAttributeQuotes: true,
+    collapseBooleanAttributes: true,
+    minifyJS: true,
+    minifyCSS: true,
+    maxLineLength: 140,
+    removeStyleLinkTypeAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeRedundantAttributes: true
+    // more options:
+    // https://github.com/kangax/html-minifier#options-quick-reference
+  }
+}
 
 const sourceMapStyle = argv.source_map || argv['source-map'] || false
 

@@ -3,7 +3,9 @@
  *
  * If the `deploy` argument has been passed, deploy to Shopify when the compilation is done.
  */
-const argv = require('minimist')(process.argv.slice(2))
+const argv = require('minimist')(process.argv.slice(2), {
+  'boolean': 'minify'
+})
 
 process.env.watch = true
 

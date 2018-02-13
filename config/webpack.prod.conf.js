@@ -18,7 +18,7 @@ const cssnano = require('cssnano')
 const htmlMin = {
   removeComments: true,
   collapseWhitespace: true,
-  removeAttributeQuotes: true,
+  removeAttributeQuotes: false,
   collapseBooleanAttributes: true,
   minifyJS: true,
   minifyCSS: true,
