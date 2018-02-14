@@ -4,7 +4,8 @@
  * If the `deploy` argument has been passed, deploy to Shopify when the compilation is done.
  */
 const argv = require('minimist')(process.argv.slice(2), {
-  'boolean': 'minify'
+  'boolean': 'minify',
+  'boolean': 'inc'
 })
 
 process.env.watch = true
@@ -20,16 +21,17 @@ const WebpackOnBuildPlugin = require('on-build-webpack')
 
 process.env.SHOPIFY_ENV = env
 
-// const util = require('util')
+const util = require('util')
 // const debuglog = util.debuglog('shopify-upload')
 // debuglog('webpack-config:\n %o', webpackConfig)
 
+console.log('argv: ', util.inspect(argv))
 let browserSyncServer
 let uploaderStarted = false
 
 const onBuildUpload = new WebpackOnBuildPlugin(() => {
   if (argv.inc && !uploaderStarted) {
-    uploader.uploadChanges(file => browserSyncServer && browserSyncServer.reload(file))
+    uploader.uploadChanges(file => browserSyncServer && browserSyncServer.reload(file), env)
     uploaderStarted = true
   }
 })
