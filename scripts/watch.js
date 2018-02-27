@@ -66,7 +66,7 @@ function startWatching() {
 
 
 if (!argv.inc) {
-  uploader.uploadChanges(() => {})
+  uploader.uploadChanges(() => {}, env)
 }
 
 if (argv['browser-sync']) {
