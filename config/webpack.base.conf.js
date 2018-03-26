@@ -9,7 +9,6 @@ const paths = require('../config/paths')
 const commonExcludes = require('../lib/common-excludes')
 
 const isDevServer = process.argv.find(v => v.includes('serve'))
-const threadLoader = require('thread-loader')
 
 /**
  * Return an array of ContextReplacementPlugin to use.
@@ -34,14 +33,6 @@ const contextReplacementPlugins = () => {
 
   return plugins
 }
-
-const workerPool = {
-  workers: 4,
-  poolTimeout: process.env.watch ? Infinity : 2000
-}
-
-
-threadLoader.warmup(workerPool, ['babel-loader', 'babel-preset-env'])
 
 module.exports = {
   context: paths.src,
@@ -72,10 +63,6 @@ module.exports = {
         exclude: commonExcludes(),
         include: paths.src,
         use: [
-          {
-            loader: 'thread-loader',
-            options: workerPool
-          },
           {
             loader: 'babel-loader',
             options: {
