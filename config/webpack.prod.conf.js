@@ -74,7 +74,7 @@ module.exports = merge(webpackConfig, {
     }),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.NODE_ENV': JSON.stringify('production'),
       'BUILD_MODE': JSON.stringify('deploy')
     }),
 

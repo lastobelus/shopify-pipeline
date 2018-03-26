@@ -6,10 +6,7 @@
 const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
 const webpack = require('webpack')
-const prodConfig = require('../config/webpack.prod.conf')
-const watchConfig = require('../config/webpack.watch.conf')
-const webpackConfig = argv.watch ? watchConfig : prodConfig
-const uploader = require('../lib/shopify-uploader')
+const webpackConfig = require('../config/webpack.prod.conf')
 
 const config = require('../config')
 const shopify = require('../lib/shopify-deploy')
@@ -35,5 +32,5 @@ webpack(webpackConfig, (err, stats) => {
       console.log(`\n${chalk.red(error)}\n`)
     })
   }
-
 })
+
