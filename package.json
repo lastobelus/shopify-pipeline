@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
@@ -67,6 +67,7 @@
     "sass-loader": "6.0.6",
     "style-loader": "0.19.1",
     "thread-loader": "^1.1.2",
+    "underscore-template-loader": "^1.0.0",
     "webpack": "~2.6",
     "webpack-dev-middleware": "2.0.4",
     "webpack-hot-middleware": "2.21.0",
