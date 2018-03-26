@@ -25,7 +25,6 @@ const util = require('util')
 // const debuglog = util.debuglog('shopify-upload')
 // debuglog('webpack-config:\n %o', webpackConfig)
 
-console.log('argv: ', util.inspect(argv))
 let browserSyncServer
 let uploaderStarted = false
 
@@ -37,7 +36,6 @@ const onBuildUpload = new WebpackOnBuildPlugin(() => {
 })
 
 function startWatching() {
-  console.log("call webpackConfigPromise.then")
   webpackConfigPromise.then((resolvedConfig) => {
     resolvedConfig.plugins.push(onBuildUpload)
     if (argv['browser-sync']) {

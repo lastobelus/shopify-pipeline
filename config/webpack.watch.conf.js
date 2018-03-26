@@ -41,9 +41,9 @@ const browserSyncTunnelUrl = argv['browser-sync-tunnel-url']
 
 
 const configPromise = new Promise((resolve) => {
-  console.log('sourceMapStyle: ', sourceMapStyle)
-  console.log('enableBrowserSync: ', enableBrowserSync)
-  console.log('browserSyncTunnelUrl: ', browserSyncTunnelUrl)
+  // console.log('sourceMapStyle: ', sourceMapStyle)
+  // console.log('enableBrowserSync: ', enableBrowserSync)
+  // console.log('browserSyncTunnelUrl: ', browserSyncTunnelUrl)
   const finalConfig = merge(webpackConfig, {
     watch: true,
     devtool: sourceMapStyle,
@@ -155,7 +155,6 @@ const configPromise = new Promise((resolve) => {
       })
     ]
   }, userWebpackConfig)
-  console.log('resolving config promise')
   resolve(finalConfig)
 })
 
