@@ -285,7 +285,12 @@ Here are the available API commands for Shopify Pipeline:
 Use node --inspect. Note that `cli.js` spawns, so you need to use node inspect directly on a script:
 `node --inspect node_modules/shopify_pipeline/scripts/build.js --watch`
 
+To use a local copy of shopify-pipeline in your project:
 
+1. run `yarn link` in your local copy
+2. run `yarn link shopify-pipeline` in your project dir
+
+To stop using your local copy, run `yarn unlink shopify-pipeline` in your project dir
 ## Caveats
 ### How to generate a local SSH certificate
 In order to be able to use local assets in Shopify's environment, you will need to allow your browser to use `https://localhost:8080` as a safe URL.

@@ -11,6 +11,7 @@ module.exports = (root) => {
   packageJson.scripts = {
     serve: 'shopify-pipeline serve',
     build: 'shopify-pipeline build',
+    upload: 'shopify-pipeline upload',
     deploy: 'shopify-pipeline build --deploy',
     test: 'shopify-pipeline test --coverage'
   }

@@ -9,6 +9,7 @@ let result
 switch (script) {
   case 'build':
   case 'watch':
+  case 'upload':
   case 'serve':
     result = spawn.sync(
       'node',
