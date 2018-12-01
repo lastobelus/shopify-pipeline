@@ -88,9 +88,7 @@ const configPromise = new Promise((resolve) => {
 
       new webpack.optimize.UglifyJsPlugin({
         sourceMap: true,
-        compress: {
-          warnings: false
-        }
+        compress: false
       }),
 
       // extract css into its own file
