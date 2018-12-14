@@ -53,7 +53,7 @@ module.exports = merge(webpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      'BUILD_MODE': JSON.stringify('serve')
+      BUILD_MODE: JSON.stringify('serve')
     }),
 
     new webpack.HotModuleReplacementPlugin(),
@@ -66,12 +66,14 @@ module.exports = merge(webpackConfig, {
       template: './layout/theme.liquid',
       inject: true
     }),
+
     new HtmlWebpackPlugin({
       excludeChunks: ['static', 'checkout'],
       filename: '../layout/search.liquid',
       template: './layout/search.liquid',
       inject: true
     }),
+
     new HtmlWebpackPlugin({
       excludeChunks: ['static', 'index'],
       filename: '../layout/checkout.liquid',
