@@ -1,9 +1,9 @@
 const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
 const path = require('path')
-const paths = require('../config/paths')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
+const paths = require('../config/paths')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('watch')
@@ -139,9 +139,9 @@ const configPromise = new Promise((resolve) => {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks: module => (
-          module.resource &&
-            /\.js$/.test(module.resource) &&
-            module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+          module.resource
+            && /\.js$/.test(module.resource)
+            && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
         )
       }),
 
@@ -152,7 +152,7 @@ const configPromise = new Promise((resolve) => {
         chunks: ['vendor']
       })
     ]
-  }, userWebpackConfig)
+  }, ...userWebpackConfig)
   resolve(finalConfig)
 })
 

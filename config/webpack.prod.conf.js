@@ -141,4 +141,4 @@ module.exports = merge(webpackConfig, {
       chunks: ['vendor']
     })
   ]
-}, userWebpackConfig)
+}, ...userWebpackConfig)
