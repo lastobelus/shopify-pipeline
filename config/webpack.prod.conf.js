@@ -1,5 +1,4 @@
 const path = require('path')
-const paths = require('../config/paths')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.base.conf')
@@ -14,6 +13,7 @@ const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
+const paths = require('../config/paths')
 
 const htmlMin = {
   removeComments: true,
@@ -75,7 +75,7 @@ module.exports = merge(webpackConfig, {
 
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'BUILD_MODE': JSON.stringify('deploy')
+      BUILD_MODE: JSON.stringify('deploy')
     }),
 
     new webpack.optimize.UglifyJsPlugin({
@@ -86,7 +86,7 @@ module.exports = merge(webpackConfig, {
     }),
 
     // extract css into its own file
-    new ExtractTextPlugin('styles.[contenthash].css'),
+    new ExtractTextPlugin('[name]-styles.[contenthash].css'),
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
@@ -128,10 +128,10 @@ module.exports = merge(webpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-        )
+        module.resource
+          && /\.js$/.test(module.resource)
+          && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+      )
     }),
 
     // extract webpack runtime and module manifest to its own file in order to
