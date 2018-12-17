@@ -1,11 +1,16 @@
 const fs = require('fs')
 const webpack = require('webpack')
-const config = require('../config')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
+const merge = require('webpack-merge')
+
+const chalk = require('chalk')
+
+const config = require('../config')
 const paths = require('../config/paths')
+const entryConfig = require('./webpack.entry.conf')
 const commonExcludes = require('../lib/common-excludes')
 
 const isDevServer = process.argv.find(v => v.includes('serve'))
@@ -34,10 +39,10 @@ const contextReplacementPlugins = () => {
   return plugins
 }
 
-module.exports = {
-  context: paths.src,
+console.log(chalk.red(`entryConfig: ${entryConfig}`))
 
-  entry: config.paths.entrypoints,
+module.exports = merge.smart(entryConfig, {
+  context: paths.src,
 
   output: {
     filename: '[name].[hash].js',
@@ -55,7 +60,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test:/fancybox[\/\\]/,
+        test: /fancybox[\/\\]/,
         use: 'imports-loader?jQuery=jquery,$=jquery,this=>window'
       },
       {
@@ -77,7 +82,7 @@ module.exports = {
               ]
             }
           }
-        ],
+        ]
       },
       {
         test: /fonts\/.*\.(eot|svg|ttf|woff|woff2)$/,
@@ -161,4 +166,4 @@ module.exports = {
     })
 
   ]
-}
+})

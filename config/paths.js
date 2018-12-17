@@ -45,13 +45,25 @@ module.exports = {
   vendors: resolveApp('src/assets/vendors'),
   lib: resolveSelf('lib'),
   entrypoints: {
-    index: resolveApp('src/assets/js/index.js'),
-    checkout: resolveApp('src/assets/js/checkout.js'),
-    static: resolveSelf('lib/static-files-glob.js')
+    index: {
+      inject: [
+        'layout/theme.liquid',
+        'layout/search.liquid'
+      ],
+      src: resolveApp('src/assets/js/index.js')
+    },
+    checkout: {
+      inject: ['layout/checkout.liquid'],
+      src: resolveApp('src/assets/js/checkout.js')
+    },
+    static: {
+      src: resolveSelf('lib/static-files-glob.js'),
+      inject: false
+    }
   },
   assetsOutput: resolveApp('dist/assets'),
   userShopifyConfig: resolveApp('config/shopify.yml'),
   userServerConfig: resolveApp('config/server.yml'),
   eslintrc: getEslintrc(),
-  bourbon: bourbon
+  bourbon
 }
