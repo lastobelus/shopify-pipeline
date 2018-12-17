@@ -1,18 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const webpackConfig = require('./webpack.base.conf')
-const commonExcludes = require('../lib/common-excludes')
-const userWebpackConfig = require('../lib/get-user-webpack-config')('prod')
 
-const config = require('../config')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
+
+const webpackConfig = require('./webpack.base.conf')
+const commonExcludes = require('../lib/common-excludes')
+const userWebpackConfig = require('../lib/get-user-webpack-config')('prod')
+const config = require('../config')
+
+const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 const paths = require('../config/paths')
 
 const htmlMin = {
@@ -29,7 +31,7 @@ const htmlMin = {
   // more options:
   // https://github.com/kangax/html-minifier#options-quick-reference
 }
-module.exports = merge(webpackConfig, {
+const mergedConfig = merge.smart(webpackConfig, {
   devtool: 'hidden-source-map',
 
   module: {
@@ -90,7 +92,7 @@ module.exports = merge(webpackConfig, {
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'checkout'],
+      chunks: ['index'],
       filename: '../layout/theme.liquid',
       // filename: '../index.html',
       template: './layout/theme.liquid',
@@ -101,7 +103,7 @@ module.exports = merge(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'checkout'],
+      chunks: ['index'],
       filename: '../layout/search.liquid',
       // filename: '../index.html',
       template: './layout/search.liquid',
@@ -112,7 +114,7 @@ module.exports = merge(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'index'],
+      chunks: ['checkout'],
       filename: '../layout/checkout.liquid',
       // filename: '../index.html',
       template: './layout/checkout.liquid',
@@ -142,3 +144,6 @@ module.exports = merge(webpackConfig, {
     })
   ]
 }, ...userWebpackConfig)
+
+console.log('mergedConfig', mergedConfig)
+module.exports = mergedConfig

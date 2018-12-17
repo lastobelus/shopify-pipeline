@@ -1,20 +1,19 @@
 const argv = require('minimist')(process.argv.slice(2))
-const chalk = require('chalk')
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const paths = require('../config/paths')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
+const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
+
+const config = require('../config')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('watch')
 
-const config = require('../config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
-
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
 
 let htmlMin = false
 if (argv.minify) {
@@ -44,7 +43,7 @@ const configPromise = new Promise((resolve) => {
   // console.log('sourceMapStyle: ', sourceMapStyle)
   // console.log('enableBrowserSync: ', enableBrowserSync)
   // console.log('browserSyncTunnelUrl: ', browserSyncTunnelUrl)
-  const finalConfig = merge(webpackConfig, {
+  const finalConfig = merge.smart(webpackConfig, {
     watch: true,
     devtool: sourceMapStyle,
 
@@ -96,7 +95,7 @@ const configPromise = new Promise((resolve) => {
 
       // generate dist/layout/theme.liquid with correct paths to assets
       new HtmlWebpackPlugin({
-        excludeChunks: ['static', 'checkout'],
+        chunks: ['index'],
         filename: '../layout/theme.liquid',
         template: './layout/theme.liquid',
         inject: true,
@@ -110,7 +109,7 @@ const configPromise = new Promise((resolve) => {
       }),
 
       new HtmlWebpackPlugin({
-        excludeChunks: ['static', 'checkout'],
+        chunks: ['index'],
         filename: '../layout/search.liquid',
         template: './layout/search.liquid',
         inject: true,
@@ -122,7 +121,7 @@ const configPromise = new Promise((resolve) => {
       }),
 
       new HtmlWebpackPlugin({
-        excludeChunks: ['static', 'index'],
+        chunks: ['checkout'],
         filename: '../layout/checkout.liquid',
         template: './layout/checkout.liquid',
         inject: true,

@@ -18,7 +18,7 @@ Object.keys(webpackConfig.entry).forEach((name) => {
   ].concat(webpackConfig.entry[name])
 })
 
-module.exports = merge(webpackConfig, {
+module.exports = merge.smart(webpackConfig, {
   devtool: 'eval-source-map',
 
   module: {
@@ -61,21 +61,21 @@ module.exports = merge(webpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'checkout'],
+      chunks: ['index'],
       filename: '../layout/theme.liquid',
       template: './layout/theme.liquid',
       inject: true
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'checkout'],
+      chunks: ['index'],
       filename: '../layout/search.liquid',
       template: './layout/search.liquid',
       inject: true
     }),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['static', 'index'],
+      chunks: ['checkout'],
       filename: '../layout/checkout.liquid',
       template: './layout/checkout.liquid',
       inject: true
