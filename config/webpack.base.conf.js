@@ -39,7 +39,7 @@ const contextReplacementPlugins = () => {
   return plugins
 }
 
-console.log(chalk.red(`entryConfig: ${entryConfig}`))
+// console.log(chalk.red('entryConfig:'), entryConfig)
 
 module.exports = merge.smart(entryConfig, {
   context: paths.src,
@@ -97,26 +97,12 @@ module.exports = merge.smart(entryConfig, {
         ]
       },
       {
-        test: config.regex.static,
-        // excluding layout/theme.liquid as it's also being emitted by the HtmlWebpackPlugin
-        exclude: commonExcludes('layout/theme.liquid', 'layout/search.liquid', 'layout/checkout.liquid'),
-        loader: 'file-loader',
-        options: {
-          name: '../[path][name].[ext]'
-        }
-      },
-      {
         test: /assets\/vendors\//,
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]'
         }
-      },
-      {
-        test: /layout\/.+\.liquid$/,
-        exclude: commonExcludes(),
-        loader: 'underscore-template-loader'
       },
       {
         test: /\.liquid$/,

@@ -11,11 +11,14 @@ const cssnano = require('cssnano')
 
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
-const userWebpackConfig = require('../lib/get-user-webpack-config')('prod')
+const userConfigs = require('../lib/get-user-webpack-config')
+
 const config = require('../config')
 
 const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 const paths = require('../config/paths')
+
+const userWebpackConfig = userConfigs.configForEnv('prod')
 
 const htmlMin = {
   removeComments: true,
@@ -105,7 +108,6 @@ const mergedConfig = merge.smart(webpackConfig, {
     new HtmlWebpackPlugin({
       chunks: ['index'],
       filename: '../layout/search.liquid',
-      // filename: '../index.html',
       template: './layout/search.liquid',
       inject: true,
       minify: htmlMin,
@@ -116,10 +118,19 @@ const mergedConfig = merge.smart(webpackConfig, {
     new HtmlWebpackPlugin({
       chunks: ['checkout'],
       filename: '../layout/checkout.liquid',
-      // filename: '../index.html',
       template: './layout/checkout.liquid',
       inject: true,
       minify: htmlMin,
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
+
+    new HtmlWebpackPlugin({
+      chunks: ['slots'],
+      filename: '../templates/page.deal-of-the-day.liquid',
+      template: './templates/page.deal-of-the-day.liquid',
+      inject: true,
+      minify: false,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -145,5 +156,6 @@ const mergedConfig = merge.smart(webpackConfig, {
   ]
 }, ...userWebpackConfig)
 
-console.log('mergedConfig', mergedConfig)
+// console.log('mergedConfig', mergedConfig)
+// console.log('mergedConfig.module.rules', mergedConfig.module.rules)
 module.exports = mergedConfig

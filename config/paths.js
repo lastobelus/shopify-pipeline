@@ -1,26 +1,6 @@
 const fs = require('fs')
-const path = require('path')
 const bourbon = require('node-bourbon').includePaths
-
-const appDirectory = fs.realpathSync(process.cwd())
-
-/**
- * Resolve a relative path to the app directory
- *
- * @return String
- */
-function resolveApp(relativePath) {
-  return path.resolve(appDirectory, relativePath)
-}
-
-/**
- * Resolve a relative path to the tool directory
- *
- * @return String
- */
-function resolveSelf(relativePath) {
-  return path.resolve(__dirname, '../', relativePath)
-}
+const pathResolver = require('../lib/path-resolver')
 
 /**
  * Find and return the userland .eslintrc if one exists, otherwise, returns
@@ -29,41 +9,42 @@ function resolveSelf(relativePath) {
  * @return  String  Path to an .eslintrc file
  */
 function getEslintrc() {
-  const appEslintrc = resolveApp('./.eslintrc')
+  const appEslintrc = pathResolver.resolveApp('./.eslintrc')
 
   if (fs.existsSync(appEslintrc)) {
     return appEslintrc
   }
 
-  return resolveSelf('./.eslintrc')
+  return pathResolver.resolveSelf('./.eslintrc')
 }
 
 module.exports = {
-  root: appDirectory,
-  dist: resolveApp('dist'),
-  src: resolveApp('src'),
-  vendors: resolveApp('src/assets/vendors'),
-  lib: resolveSelf('lib'),
+  root: pathResolver.appDirectory,
+  dist: pathResolver.resolveApp('dist'),
+  src: pathResolver.resolveApp('src'),
+  vendors: pathResolver.resolveApp('src/assets/vendors'),
+  lib: pathResolver.resolveSelf('lib'),
   entrypoints: {
     index: {
       inject: [
         'layout/theme.liquid',
         'layout/search.liquid'
       ],
-      src: resolveApp('src/assets/js/index.js')
+      src: 'src/assets/js/index.js'
     },
     checkout: {
       inject: ['layout/checkout.liquid'],
-      src: resolveApp('src/assets/js/checkout.js')
+      src: 'src/assets/js/checkout.js'
     },
     static: {
-      src: resolveSelf('lib/static-files-glob.js'),
+      src: 'lib/static-files-glob.js',
+      lib: true,
       inject: false
     }
   },
-  assetsOutput: resolveApp('dist/assets'),
-  userShopifyConfig: resolveApp('config/shopify.yml'),
-  userServerConfig: resolveApp('config/server.yml'),
+  assetsOutput: pathResolver.resolveApp('dist/assets'),
+  userShopifyConfig: pathResolver.resolveApp('config/shopify.yml'),
+  userServerConfig: pathResolver.resolveApp('config/server.yml'),
   eslintrc: getEslintrc(),
   bourbon
 }

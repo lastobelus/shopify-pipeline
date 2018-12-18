@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('./index')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
-const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
+const userConfigs = require('../lib/get-user-webpack-config')
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.devDomain}/`
@@ -17,6 +17,8 @@ Object.keys(webpackConfig.entry).forEach((name) => {
     path.join(__dirname, '../lib/hot-client.js')
   ].concat(webpackConfig.entry[name])
 })
+
+const userWebpackConfig = userConfigs.configForEnv('dev')
 
 module.exports = merge.smart(webpackConfig, {
   devtool: 'eval-source-map',
@@ -79,7 +81,16 @@ module.exports = merge.smart(webpackConfig, {
       filename: '../layout/checkout.liquid',
       template: './layout/checkout.liquid',
       inject: true
+    }),
+
+    new HtmlWebpackPlugin({
+      chunks: ['slots'],
+      filename: '../templates/page.deal-of-the-day.liquid',
+      // filename: '../index.html',
+      template: './templates/page.deal-of-the-day.liquid',
+      inject: true
     })
+
 
   ]
 }, ...userWebpackConfig)

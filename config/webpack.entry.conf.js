@@ -2,9 +2,11 @@ const merge = require('webpack-merge')
 
 const config = require('../config')
 
-const userConfig = require('../lib/get-user-webpack-config')
+const userConfigs = require('../lib/get-user-webpack-config')
+const pathResolver = require('../lib/path-resolver')
+const commonExcludes = require('../lib/common-excludes')
 
-const userEntryConfig = userConfig.configForName('entry') || {}
+const userEntryConfig = userConfigs.configForName('entry') || {}
 
 const entrypoints = merge.smart(
   config.paths.entrypoints,
@@ -13,12 +15,60 @@ const entrypoints = merge.smart(
 
 const entry = Object.keys(entrypoints).reduce(
   (result, entryName) => {
-    result[entryName] = result[entryName].src
+    const entrypoint = entrypoints[entryName]
+    let path
+
+    if (entrypoint.lib) {
+      path = pathResolver.resolveSelf(entrypoint.src)
+    } else {
+      path = pathResolver.resolveApp(entrypoint.src)
+    }
+
+    result[entryName] = path // eslint-disable-line no-param-reassign
+
     return result
   },
   {}
 )
 
+const excludes = new Set(
+  Object.keys(entrypoints).reduce(
+    (result, entryName) => {
+      const entrypoint = entrypoints[entryName]
+      const loader = entrypoint.loader || 'html'
+      if (entrypoint.inject && loader === 'html') {
+        result.push(...entrypoint.inject) // eslint-disable-line no-param-reassign
+      }
+      return result
+    }, []
+  )
+)
+
+const rawIncludes = [...excludes].map(
+  relativePath => pathResolver.resolveApp(`src/${relativePath}`)
+)
+
+// console.log('excludes', excludes)
+
 module.exports = {
-  entry
+  entry,
+  module: {
+    rules: [
+      {
+        test: config.regex.static,
+        // excluding entrypoints files as they will be emitted by the HtmlWebpackPlugin
+        exclude: commonExcludes(...excludes),
+        loader: 'file-loader',
+        options: {
+          name: '../[path][name].[ext]'
+        }
+      },
+      {
+        test: /\.liquid$/,
+        include: rawIncludes,
+        loader: 'underscore-template-loader'
+      }
+
+    ]
+  }
 }

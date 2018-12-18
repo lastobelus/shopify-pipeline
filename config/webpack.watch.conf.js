@@ -12,7 +12,9 @@ const AssetTagToShopifyLiquid = require('../lib/asset-tag-to-shopify-liquid')
 const config = require('../config')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
-const userWebpackConfig = require('../lib/get-user-webpack-config')('watch')
+const userConfigs = require('../lib/get-user-webpack-config')
+
+const userWebpackConfig = userConfigs.configForEnv('watch')
 
 
 let htmlMin = false
@@ -128,6 +130,18 @@ const configPromise = new Promise((resolve) => {
         cache: true,
         hash: false,
         minify: htmlMin,
+        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+        chunksSortMode: 'dependency'
+      }),
+
+      new HtmlWebpackPlugin({
+        chunks: ['slots'],
+        filename: '../templates/page.deal-of-the-day.liquid',
+        template: './templates/page.deal-of-the-day.liquid',
+        inject: true,
+        cache: true,
+        hash: false,
+        minify: false,
         // necessary to consistently work with multiple chunks via CommonsChunkPlugin
         chunksSortMode: 'dependency'
       }),

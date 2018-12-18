@@ -1,7 +1,7 @@
 const fs = require('fs')
-const paths = require('./paths')
 const YAML = require('yamljs')
 const merge = require('merge')
+const paths = require('./paths')
 
 let config = {
   paths,
@@ -14,7 +14,7 @@ let config = {
   }
 }
 
-if(fs.existsSync(paths.userServerConfig)) {
+if (fs.existsSync(paths.userServerConfig)) {
   config = merge(true, config, YAML.load(paths.userServerConfig))
 }
 
