@@ -5,6 +5,7 @@ const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
@@ -95,7 +96,7 @@ const mergedConfig = merge.smart(webpackConfig, {
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
-      chunks: ['index'],
+      chunks: ['manifest', 'vendor', 'index'],
       filename: '../layout/theme.liquid',
       // filename: '../index.html',
       template: './layout/theme.liquid',
@@ -106,7 +107,7 @@ const mergedConfig = merge.smart(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      chunks: ['index'],
+      chunks: ['manifest', 'vendor', 'index'],
       filename: '../layout/search.liquid',
       template: './layout/search.liquid',
       inject: true,
@@ -116,7 +117,7 @@ const mergedConfig = merge.smart(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      chunks: ['checkout'],
+      chunks: ['manifest', 'vendor', 'checkout'],
       filename: '../layout/checkout.liquid',
       template: './layout/checkout.liquid',
       inject: true,
@@ -126,7 +127,7 @@ const mergedConfig = merge.smart(webpackConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      chunks: ['slots'],
+      chunks: ['manifest', 'vendor', 'slots'],
       filename: '../templates/page.deal-of-the-day.liquid',
       template: './templates/page.deal-of-the-day.liquid',
       inject: true,
@@ -151,8 +152,13 @@ const mergedConfig = merge.smart(webpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      chunks: ['vendor']
+      minChunks: Infinity
+    }),
+
+    new InlineChunkWebpackPlugin({
+      inlineChunks: ['manifest']
     })
+
   ]
 }, ...userWebpackConfig)
 
