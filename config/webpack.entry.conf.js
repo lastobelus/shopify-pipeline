@@ -1,17 +1,9 @@
-const merge = require('webpack-merge')
 
 const config = require('../config')
 
-const userConfigs = require('../lib/get-user-webpack-config')
 const pathResolver = require('../lib/path-resolver')
 const commonExcludes = require('../lib/common-excludes')
-
-const userEntryConfig = userConfigs.configForName('entry') || {}
-
-const entrypoints = merge.smart(
-  config.paths.entrypoints,
-  userEntryConfig.entrypoints || {}
-)
+const entrypoints = require('../lib/entrypoints')
 
 const entry = Object.keys(entrypoints).reduce(
   (result, entryName) => {
@@ -47,8 +39,6 @@ const excludes = new Set(
 const rawIncludes = [...excludes].map(
   relativePath => pathResolver.resolveApp(`src/${relativePath}`)
 )
-
-// console.log('excludes', excludes)
 
 module.exports = {
   entry,

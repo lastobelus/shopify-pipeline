@@ -3,7 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin')
 
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
@@ -13,6 +13,7 @@ const config = require('../config')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userConfigs = require('../lib/get-user-webpack-config')
+const getHtmlEntries = require('../lib/get-html-entries')
 
 const userWebpackConfig = userConfigs.configForEnv('watch')
 
@@ -40,11 +41,17 @@ const sourceMapStyle = argv.source_map || argv['source-map'] || false
 const enableBrowserSync = argv['browser-sync']
 const browserSyncTunnelUrl = argv['browser-sync-tunnel-url']
 
+const htmlEntries = getHtmlEntries({
+  cache: true,
+  hash: false,
+  minify: htmlMin,
+  // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+  chunksSortMode: 'dependency',
+  InsertBrowserSync: enableBrowserSync,
+  BrowserSyncTunnelUrl: browserSyncTunnelUrl
+})
 
 const configPromise = new Promise((resolve) => {
-  // console.log('sourceMapStyle: ', sourceMapStyle)
-  // console.log('enableBrowserSync: ', enableBrowserSync)
-  // console.log('browserSyncTunnelUrl: ', browserSyncTunnelUrl)
   const finalConfig = merge.smart(webpackConfig, {
     watch: true,
     devtool: sourceMapStyle,
@@ -93,58 +100,9 @@ const configPromise = new Promise((resolve) => {
       }),
 
       // extract css into its own file
-      new ExtractTextPlugin('[name].css'),
+      new ExtractTextPlugin('[name]-styles.css'),
 
-      // generate dist/layout/theme.liquid with correct paths to assets
-      new HtmlWebpackPlugin({
-        chunks: ['index'],
-        filename: '../layout/theme.liquid',
-        template: './layout/theme.liquid',
-        inject: true,
-        cache: true,
-        hash: false,
-        minify: htmlMin,
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency',
-        InsertBrowserSync: enableBrowserSync,
-        BrowserSyncTunnelUrl: browserSyncTunnelUrl
-      }),
-
-      new HtmlWebpackPlugin({
-        chunks: ['index'],
-        filename: '../layout/search.liquid',
-        template: './layout/search.liquid',
-        inject: true,
-        cache: true,
-        hash: false,
-        minify: htmlMin,
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency'
-      }),
-
-      new HtmlWebpackPlugin({
-        chunks: ['checkout'],
-        filename: '../layout/checkout.liquid',
-        template: './layout/checkout.liquid',
-        inject: true,
-        cache: true,
-        hash: false,
-        minify: htmlMin,
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency'
-      }),
-
-      new HtmlWebpackPlugin({
-        chunks: ['slots'],
-        filename: '../templates/page.deal-of-the-day.liquid',
-        template: './templates/page.deal-of-the-day.liquid',
-        inject: true,
-        cache: true,
-        hash: false,
-        minify: false,
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency'
-      }),
+      ...htmlEntries,
 
       new AssetTagToShopifyLiquid(),
 
@@ -162,8 +120,13 @@ const configPromise = new Promise((resolve) => {
       // prevent vendor hash from being updated whenever app bundle is updated
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
-        chunks: ['vendor']
+        minChunks: Infinity
+      }),
+
+      new InlineChunkWebpackPlugin({
+        inlineChunks: ['manifest']
       })
+
     ]
   }, ...userWebpackConfig)
   resolve(finalConfig)

@@ -1,12 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./index')
 const webpackConfig = require('./webpack.base.conf')
 const commonExcludes = require('../lib/common-excludes')
 const userConfigs = require('../lib/get-user-webpack-config')
+const getHtmlEntries = require('../lib/get-html-entries')
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.devDomain}/`
@@ -20,6 +20,8 @@ Object.keys(webpackConfig.entry).forEach((name) => {
 
 const userWebpackConfig = userConfigs.configForEnv('dev')
 
+const htmlEntries = getHtmlEntries({})
+
 module.exports = merge.smart(webpackConfig, {
   devtool: 'eval-source-map',
 
@@ -28,7 +30,7 @@ module.exports = merge.smart(webpackConfig, {
       {
         enforce: 'pre',
         test: /\.js$/,
-        include: paths.src,
+        include: config.paths.src,
         exclude: commonExcludes('/node_modules/'),
         loader: 'eslint-loader',
         options: {
@@ -62,35 +64,7 @@ module.exports = merge.smart(webpackConfig, {
 
     new webpack.NoEmitOnErrorsPlugin(),
 
-    new HtmlWebpackPlugin({
-      chunks: ['index'],
-      filename: '../layout/theme.liquid',
-      template: './layout/theme.liquid',
-      inject: true
-    }),
-
-    new HtmlWebpackPlugin({
-      chunks: ['index'],
-      filename: '../layout/search.liquid',
-      template: './layout/search.liquid',
-      inject: true
-    }),
-
-    new HtmlWebpackPlugin({
-      chunks: ['checkout'],
-      filename: '../layout/checkout.liquid',
-      template: './layout/checkout.liquid',
-      inject: true
-    }),
-
-    new HtmlWebpackPlugin({
-      chunks: ['slots'],
-      filename: '../templates/page.deal-of-the-day.liquid',
-      // filename: '../index.html',
-      template: './templates/page.deal-of-the-day.liquid',
-      inject: true
-    })
-
+    ...htmlEntries
 
   ]
 }, ...userWebpackConfig)
