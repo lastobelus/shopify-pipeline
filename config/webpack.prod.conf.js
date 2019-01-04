@@ -4,7 +4,6 @@ const merge = require('webpack-merge')
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin')
 
 const autoprefixer = require('autoprefixer')
@@ -21,6 +20,8 @@ const paths = require('../config/paths')
 
 const userWebpackConfig = userConfigs.configForEnv('prod')
 
+const getHtmlEntries = require('../lib/get-html-entries')
+
 const htmlMin = {
   removeComments: true,
   collapseWhitespace: true,
@@ -35,6 +36,13 @@ const htmlMin = {
   // more options:
   // https://github.com/kangax/html-minifier#options-quick-reference
 }
+
+const htmlEntries = getHtmlEntries({
+  minify: htmlMin,
+  // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+  chunksSortMode: 'dependency'
+})
+
 const mergedConfig = merge.smart(webpackConfig, {
   devtool: 'hidden-source-map',
 
@@ -94,47 +102,8 @@ const mergedConfig = merge.smart(webpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin('[name]-styles.[contenthash].css'),
 
-    // generate dist/layout/theme.liquid with correct paths to assets
-    new HtmlWebpackPlugin({
-      chunks: ['manifest', 'vendor', 'index'],
-      filename: '../layout/theme.liquid',
-      // filename: '../index.html',
-      template: './layout/theme.liquid',
-      inject: true,
-      minify: htmlMin,
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
 
-    new HtmlWebpackPlugin({
-      chunks: ['manifest', 'vendor', 'index'],
-      filename: '../layout/search.liquid',
-      template: './layout/search.liquid',
-      inject: true,
-      minify: htmlMin,
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-
-    new HtmlWebpackPlugin({
-      chunks: ['manifest', 'vendor', 'checkout'],
-      filename: '../layout/checkout.liquid',
-      template: './layout/checkout.liquid',
-      inject: true,
-      minify: htmlMin,
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-
-    new HtmlWebpackPlugin({
-      chunks: ['manifest', 'vendor', 'slots'],
-      filename: '../templates/page.deal-of-the-day.liquid',
-      template: './templates/page.deal-of-the-day.liquid',
-      inject: true,
-      minify: false,
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
+    ...htmlEntries,
 
     new AssetTagToShopifyLiquid(),
 
@@ -162,6 +131,4 @@ const mergedConfig = merge.smart(webpackConfig, {
   ]
 }, ...userWebpackConfig)
 
-// console.log('mergedConfig', mergedConfig)
-// console.log('mergedConfig.module.rules', mergedConfig.module.rules)
 module.exports = mergedConfig

@@ -2,6 +2,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const InlineChunkWebpackPlugin = require('html-webpack-inline-chunk-plugin')
+
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
@@ -40,7 +41,6 @@ const contextReplacementPlugins = () => {
   return plugins
 }
 
-// console.log(chalk.red('entryConfig:'), entryConfig)
 
 module.exports = merge.smart(entryConfig, {
   context: paths.src,
