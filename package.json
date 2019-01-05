@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",
     "express": "4.16.4",
-    "extract-loader": "3.1.0",
+    "extract-loader": "^1",
     "extract-text-webpack-plugin": "^2",
     "file-loader": "^2.0.0",
     "font-awesome": "^4.7.0",
