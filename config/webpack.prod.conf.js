@@ -38,7 +38,7 @@ const htmlMin = {
 }
 
 const htmlEntries = getHtmlEntries({
-  minify: htmlMin,
+  minify: false, //disable html minifier to avoid issue with the speed optimization code in theme.liquid
   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
   chunksSortMode: 'dependency'
 })
